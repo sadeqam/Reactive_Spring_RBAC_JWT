@@ -1,0 +1,16 @@
+app:
+  description: Spring Boot Application (Development Profile)
+  security:
+    jwt:
+      secret-key: change me in production !! ( use environment variable or ... )
+      issuer: ${app.name}
+      expire-after: 3600000
+
+spring:
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/myDbR
+    username: postgres
+    password: postgres
+  sql:
+    init:
+      mode: always

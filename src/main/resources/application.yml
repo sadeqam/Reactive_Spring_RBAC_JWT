@@ -1,0 +1,9 @@
+spring:
+  profiles:
+    active: dev
+  data:
+    r2dbc:
+      repositories:
+        enabled: true
+app:
+  name: My App
