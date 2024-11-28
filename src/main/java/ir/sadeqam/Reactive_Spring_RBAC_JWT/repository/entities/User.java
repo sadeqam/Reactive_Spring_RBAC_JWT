@@ -8,6 +8,7 @@ import org.springframework.data.relational.core.mapping.Table;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.io.Serializable;
 import java.util.*;
 
 @Table(name = "users")
@@ -31,6 +32,9 @@ public class User implements UserDetails {
 
     @Transient
     private List<Role> roles;
+
+    public User() {
+    }
 
     public User(String username, String password, List<Role> roles) {
         this.username = username;

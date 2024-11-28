@@ -8,6 +8,7 @@ import ir.sadeqam.Reactive_Spring_RBAC_JWT.repository.repositories.RoleRepositor
 import ir.sadeqam.Reactive_Spring_RBAC_JWT.service.exceptions.DataNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Flux;
@@ -52,7 +53,7 @@ public class DefaultRoleService implements RoleService {
     @Transactional
     public Mono<Role> insert(Role role) {
         return repository.save(role)
-                .doOnSuccess(savedRole -> roleAuthorityRepository.saveAll(
+                .delayUntil(savedRole -> roleAuthorityRepository.saveAll(
                         role.getAuthorities()
                                 .stream().map(
                                         authority -> new RoleAuthority(savedRole.getId(), authority.getId())
@@ -60,6 +61,7 @@ public class DefaultRoleService implements RoleService {
                                 .toList()
                         )
                 );
+
     }
 
 

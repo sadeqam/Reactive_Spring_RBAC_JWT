@@ -24,6 +24,8 @@ public class Role {
     @Transient
     private List<Authority> authorities;
 
+    public Role(){}
+
     public Role(String name) {
         this.name = name;
     }

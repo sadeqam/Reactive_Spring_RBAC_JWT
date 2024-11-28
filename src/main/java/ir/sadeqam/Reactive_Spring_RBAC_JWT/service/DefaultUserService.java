@@ -7,6 +7,7 @@ import ir.sadeqam.Reactive_Spring_RBAC_JWT.repository.repositories.UserRepositor
 import ir.sadeqam.Reactive_Spring_RBAC_JWT.repository.repositories.UserRoleRepository;
 import ir.sadeqam.Reactive_Spring_RBAC_JWT.service.exceptions.DataNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.ReactiveUserDetailsService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -37,15 +38,14 @@ public class DefaultUserService implements UserService {
     public Mono<User> insert(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return repository.save(user)
-                .doOnSuccess(savedUser -> {
-                    userRoleRepository.saveAll(
-                            user.getRoles()
-                                    .stream().map(
-                                            role -> new UserRole(savedUser.getId(), role.getId())
-                                    )
-                                    .toList()
-                    );
-                });
+                .delayUntil(savedUser -> userRoleRepository.saveAll(
+                                user.getRoles()
+                                        .stream().map(
+                                                role -> new UserRole(savedUser.getId(), role.getId())
+                                        )
+                                        .toList()
+                        )
+                );
     }
 
     @Override

@@ -22,8 +22,8 @@ public class ReactiveSpringRbacJwtApplication {
     }
 
     @Bean
-    CommandLineRunner run(InternalBookService bookService, DefaultUserService userService,
-                          RoleService roleService, DefaultAuthorityService authorityService) {
+    CommandLineRunner run(BookService bookService, UserService userService,
+                          RoleService roleService, AuthorityService authorityService) {
         return args -> {
             if (Boolean.TRUE.equals(bookService.isExists("DataBase 101").block())) return;
 

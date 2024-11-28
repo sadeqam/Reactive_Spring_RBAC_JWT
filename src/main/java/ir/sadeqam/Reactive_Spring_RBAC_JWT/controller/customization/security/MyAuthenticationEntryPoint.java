@@ -13,11 +13,11 @@ import reactor.core.publisher.Mono;
 public class MyAuthenticationEntryPoint implements ServerAuthenticationEntryPoint {
 
     @Autowired
-    @Qualifier("handlerExceptionResolver")
-    private WebExceptionHandler resolver;
+    @Qualifier("globalExceptionHandler")
+    WebExceptionHandler exceptionHandler;
 
     @Override
     public Mono<Void> commence(ServerWebExchange exchange, AuthenticationException ex) {
-        return resolver.handle(exchange, ex);
+        return exceptionHandler.handle(exchange, ex);
     }
 }

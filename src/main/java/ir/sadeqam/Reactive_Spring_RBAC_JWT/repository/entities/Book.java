@@ -22,6 +22,8 @@ public class Book {
     @NotBlank(message = "book writer can't be blank")
     private String writer;
 
+    public Book(){}
+
     public Book(String name, String writer) {
         this.name = name;
         this.writer = writer;

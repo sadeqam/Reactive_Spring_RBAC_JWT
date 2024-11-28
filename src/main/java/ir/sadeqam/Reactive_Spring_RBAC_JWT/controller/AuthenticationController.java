@@ -20,7 +20,7 @@ import java.util.Map;
 @RestController
 @RequestMapping(
         path = "api/auth",
-        produces = MediaType.TEXT_EVENT_STREAM_VALUE
+        produces = MediaType.APPLICATION_JSON_VALUE
 )
 public class AuthenticationController {
 

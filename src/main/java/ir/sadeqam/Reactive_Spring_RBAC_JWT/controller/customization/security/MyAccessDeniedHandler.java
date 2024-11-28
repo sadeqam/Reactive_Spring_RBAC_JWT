@@ -13,12 +13,12 @@ import reactor.core.publisher.Mono;
 public class MyAccessDeniedHandler implements ServerAccessDeniedHandler {
 
     @Autowired
-    @Qualifier("handlerExceptionResolver")
-    private WebExceptionHandler resolver;
-
+    @Qualifier("globalExceptionHandler")
+    WebExceptionHandler exceptionHandler;
 
     @Override
     public Mono<Void> handle(ServerWebExchange exchange, AccessDeniedException denied) {
-        return resolver.handle(exchange, denied);
+        return exceptionHandler.handle(exchange, denied);
     }
+
 }

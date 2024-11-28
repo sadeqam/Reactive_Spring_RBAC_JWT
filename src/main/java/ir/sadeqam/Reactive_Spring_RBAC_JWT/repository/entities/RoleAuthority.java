@@ -19,6 +19,8 @@ public class RoleAuthority {
     @Column("authority_id")
     private Long authorityId;
 
+    public RoleAuthority(){}
+
     public RoleAuthority(Long roleId, Long authorityId) {
         this.roleId = roleId;
         this.authorityId = authorityId;

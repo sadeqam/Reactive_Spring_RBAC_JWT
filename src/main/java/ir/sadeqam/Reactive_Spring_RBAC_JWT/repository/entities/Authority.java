@@ -19,6 +19,8 @@ public class Authority implements GrantedAuthority {
     @NotBlank(message = "authority name can't be blank")
     private String authority;
 
+    public Authority(){}
+
     public Authority(String authority) {
         this.authority = authority;
     }
